@@ -32,28 +32,58 @@ Pastaba: „100“ – čia turi būti pateikiamas konkretus skaidomas skaičius
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
+import javax.swing.*;
 
 public class Main {
     public static void main(String[] args) throws IOException {
         inputData();
         createInterval();
 
+        JFrame frame = new JFrame("Registration Form");
+        frame.setSize(600, 200);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        JPanel panel = new JPanel();
+        frame.add(panel);
+
+        JLabel nameLabel = new JLabel("From:");
+        JTextField nameText = new JTextField(10);
+        panel.add(nameLabel);
+        panel.add(nameText);
+
+        JLabel toLabel = new JLabel("To:");
+        JTextField toText = new JTextField(10);
+        panel.add(toLabel);
+        panel.add(toText);
+
+        JLabel stepLabel = new JLabel("Steps:");
+        JTextField stepText = new JTextField(10);
+        panel.add(stepLabel);
+        panel.add(stepText);
+
+
+        JButton submitButton = new JButton("Submit");
+        JButton cancelButton = new JButton("Cancel");
+
+
+        panel.add(submitButton);
+        panel.add(cancelButton);
+
+        frame.setVisible(true);
+
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
         StringBuilder str = new StringBuilder();
         String fileName = "rezultatai.txt";
         BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true));
         for (int datum : data) {
-            writer.newLine();
-            str.append(String.valueOf(datum));
-            writer.newLine();
+            String formattedDateTime = now.format(formatter);
+            str.append(formattedDateTime).append(" ").append(datum).append("\n");
         }
-            writer.append(str);
-//        writer.append(str.toString());
-
+        writer.append(str);
         writer.close();
     }
 
@@ -91,7 +121,7 @@ public class Main {
         String data = inp.next();
         if (isNumeric(data)) data_array[0] = Integer.parseInt(data);
         else {
-            System.out.println(" Ivestas ne sveikus skaicius");
+            System.out.println("Ivestas ne sveikus skaicius");
             inputData();
         }
         System.out.print("Intevalas iki: ");
