@@ -32,8 +32,10 @@ Pastaba: „100“ – čia turi būti pateikiamas konkretus skaidomas skaičius
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 import java.util.Scanner;
 import javax.swing.*;
 
@@ -42,16 +44,56 @@ public class Main {
         inputData();
         createInterval();
 
+        int primeNumberQty = 0;
+        System.out.println(Arrays.toString(data));
+        String dataArray = Arrays.toString(data);
+
+        if (!dataArray.isEmpty()) {
+            dataArray = String.valueOf(dataArray.substring(1, dataArray.length() - 1));
+        }
+        String start = timeNow() + " Skaičiavimo pradžia. Naudojami skaičiai: " + dataArray;
+        try {
+            FileWriter fileWriter = new FileWriter("rezultatai.txt", true);
+            PrintWriter printWriter = new PrintWriter(fileWriter);
+            printWriter.println(start);
+            printWriter.close();
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+
+
+        for (int i = 0; i < data.length; i++) {
+            primeNumberQty = primeNumberQty(data[i]);
+            primeArray = new int[primeNumberQty + 1];
+            primeArray[0] = data[i];
+            primenumberArray(primeArray);
+            System.out.println(Arrays.toString(primeArray));
+            dataSave(primeArray, timeNow());
+        }
+
+        String end = timeNow() + " Skaičiavimo pabaiga.";
+        try {
+            FileWriter fileWriter = new FileWriter("rezultatai.txt", true);
+            PrintWriter printWriter = new PrintWriter(fileWriter);
+            printWriter.println(end);
+            printWriter.close();
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+
+
         JFrame frame = new JFrame("Registration Form");
-        frame.setSize(600, 200);
+        frame.setSize(600, 100);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         JPanel panel = new JPanel();
         frame.add(panel);
 
-        JLabel nameLabel = new JLabel("From:");
-        JTextField nameText = new JTextField(10);
-        panel.add(nameLabel);
-        panel.add(nameText);
+        JLabel fromLabel = new JLabel("From:");
+        JTextField fromText = new JTextField(10);
+        panel.add(fromLabel);
+        panel.add(fromText);
 
         JLabel toLabel = new JLabel("To:");
         JTextField toText = new JTextField(10);
@@ -65,39 +107,63 @@ public class Main {
 
 
         JButton submitButton = new JButton("Submit");
-        JButton cancelButton = new JButton("Cancel");
+        JButton abortButton = new JButton("Abort");
 
 
         panel.add(submitButton);
-        panel.add(cancelButton);
+        panel.add(abortButton);
 
         frame.setVisible(true);
 
-        LocalDateTime now = LocalDateTime.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
+    }
+
+    private static String timeNow() {
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
+        return now.format(formatter);
+    }
+
+    private static void dataSave(int[] primeArray, String time) throws IOException {
         StringBuilder str = new StringBuilder();
         String fileName = "rezultatai.txt";
         BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true));
-        for (int datum : data) {
-            String formattedDateTime = now.format(formatter);
-            str.append(formattedDateTime).append(" ").append(datum).append("\n");
+
+        StringBuilder multiplication = new StringBuilder(primeArray[0] + "=");
+
+        for (int i = 1; i < primeArray.length; i++) {
+            multiplication.append(primeArray[i]).append("*");
         }
+        if (!multiplication.isEmpty()) {
+            multiplication = new StringBuilder(multiplication.substring(0, multiplication.length() - 1));
+        }
+
+        str.append(time).append(" ").append(multiplication).append("\n");
         writer.append(str);
         writer.close();
+
     }
 
     private static void createInterval() {
         int interval = (data_array[1] - data_array[0]) / data_array[2];
         int progressBar = data_array[2] * 100 / (data_array[1] - data_array[0]);
-        int proc = 0;
         data = new int[interval + 1];
         data[0] = data_array[0];
+        for (int i = 1; i <= interval; i++) {
+            data[i] = data[i - 1] + data_array[2];
+        }
+
+        int qty = 0;
+        int proc = 0;
+        System.out.println();
         System.out.println(proc + "% - " + data[0]);
         for (int i = 1; i < interval + 1; i++) {
             try {
                 data[i] = data[i - 1] + data_array[2];
                 proc += progressBar;
+                {
+                    int[] number = new int[qty];
+                }
                 if (data[i] == data_array[1]) {
                     proc = 100;
                 }
@@ -110,15 +176,51 @@ public class Main {
         }
     }
 
+    private static int[] primenumberArray(int[] primeArray) {
+        int value = primeArray[0];
+        for (int i = 2, y = 1; i <= value; i++) {
+            if ((value % i) == 0) {
+                value = value / i;
+                primeArray[y] = i;
+                y++;
+                i = 1;
+            }
+        }
+        return primeArray;
+    }
+
+    private static int primeNumberQty(int count) {
+        int qty = 0;
+        for (int i = 2; i <= count; i++) {
+            if ((count % i) == 0) {
+                count = count / i;
+                qty++;
+                i = 1;
+            }
+        }
+/*
+    primary number qty
+        for (int i = 2; i <= sqrt(count); i++) {
+            if ((count % i) == 0) qty++;
+       }
+*/
+        return qty;
+    }
+
     static public int[] data_array = new int[3];
     static public int[] data;
+    static public int[] primeArray;
+
+
+
+    private static int primeIndex;
 
     private static void inputData() {
         Scanner inp = new Scanner(System.in);
         System.out.println("Iveskite tris sveikus skaicius. Intervlas nuo iki ir intervalo žingsnis.");
         System.out.print("Intevalas nuo: ");
         int check = 0;
-        String data = inp.next();
+        String data = "100"; //inp.next();
         if (isNumeric(data)) data_array[0] = Integer.parseInt(data);
         else {
             System.out.println("Ivestas ne sveikus skaicius");
@@ -126,7 +228,7 @@ public class Main {
         }
         System.out.print("Intevalas iki: ");
         while (check != 1) {
-            data = inp.next();
+            data = "200"; //inp.next();
             if (isNumeric(data)) {
                 data_array[1] = Integer.parseInt(data);
                 if (data_array[1] <= data_array[0]) {
@@ -139,7 +241,7 @@ public class Main {
 
         System.out.print("Žingsnis: ");
         while (check != 0) {
-            data = inp.next();
+            data = "26"; //inp.next();
             if (isNumeric(data)) {
                 data_array[2] = Integer.parseInt(data);
                 if ((data_array[1] - data_array[0]) >= data_array[2] && (data_array[1] - data_array[0]) != 0) {
@@ -155,6 +257,4 @@ public class Main {
     private static boolean isNumeric(String str) {
         return str != null && str.matches("\\d+");
     }
-
-
 }
