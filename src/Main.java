@@ -113,12 +113,8 @@ public class Main {
                 }
             }
         });
-
-
         panel.add(submitButton);
-
         panel.add(abortButton);
-
         abortButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 System.exit(0);
@@ -127,7 +123,6 @@ public class Main {
 
         frame.pack();
         frame.setVisible(true);
-
 
         inputData();
         createInterval();
@@ -169,7 +164,6 @@ public class Main {
             System.out.println("An error occurred.");
             e.printStackTrace();
         }
-
     }
 
     private static String timeNow() {
@@ -182,20 +176,16 @@ public class Main {
         StringBuilder str = new StringBuilder();
         String fileName = "rezultatai.txt";
         BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true));
-
         StringBuilder multiplication = new StringBuilder(primeArray[0] + "=");
-
         for (int i = 1; i < primeArray.length; i++) {
             multiplication.append(primeArray[i]).append("*");
         }
         if (!multiplication.isEmpty()) {
             multiplication = new StringBuilder(multiplication.substring(0, multiplication.length() - 1));
         }
-
         str.append(time).append(" ").append(multiplication).append("\n");
         writer.append(str);
         writer.close();
-
     }
 
     private static void createInterval() {
@@ -206,7 +196,6 @@ public class Main {
         for (int i = 1; i <= interval; i++) {
             data[i] = data[i - 1] + data_array[2];
         }
-
         int qty = 0;
         int proc = 0;
         System.out.println();
@@ -237,7 +226,6 @@ public class Main {
             startDif = startDif.substring(20);
             int start = Integer.parseInt(startDif);
             //System.out.println(start);
-
             if ((value % i) == 0) {
                 String endtDif = timeNow();
                 endtDif = endtDif.substring(20);
