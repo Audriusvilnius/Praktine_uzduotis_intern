@@ -2,12 +2,13 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.net.HttpCookie;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import javax.swing.*;
+
 import static java.lang.Thread.sleep;
+
 import java.awt.event.*;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -17,6 +18,7 @@ public class Main {
     static public int[] data;
     static public int[] primeArray;
     static public int progress = 0;
+
     public static void main(String[] args) throws IOException {
 
         JFrame frame = new JFrame("Prime number calculator");
@@ -110,7 +112,6 @@ public class Main {
                 }
                 String end = timeNow() + " Skaičiavimo pabaiga.";
                 writrToFile(end);
-
             }
         });
 
