@@ -164,7 +164,6 @@ public class Main {
             data[i] = data[i - 1] + data_array[2];
         }
 
-        int qty = 0;
         int proc = 0;
         System.out.println();
         System.out.println(proc + "% - " + data[0]);
@@ -172,9 +171,6 @@ public class Main {
             try {
                 data[i] = data[i - 1] + data_array[2];
                 proc += progressBar;
-                {
-                    int[] number = new int[qty];
-                }
                 if (data[i] == data_array[1]) {
                     proc = 100;
                 }
@@ -245,7 +241,7 @@ public class Main {
         System.out.println("Iveskite tris sveikus skaicius. Intervlas nuo iki ir intervalo žingsnis.");
         System.out.print("Intevalas nuo: ");
         int check = 0;
-        //String data = from;
+        //String data = fromText;
         String data = inp.next();
         if (isNumeric(data)) data_array[0] = Integer.parseInt(data);
         else {
