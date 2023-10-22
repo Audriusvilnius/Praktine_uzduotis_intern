@@ -175,7 +175,7 @@ public class Main {
                     proc = 100;
                 }
                 // delay 0.5 seconds
-                sleep(500);
+                sleep(0);
                 System.out.println(proc + "% - " + data[i]);
             } catch (InterruptedException e) {
                 System.err.format("IOException: %s%n", e);
@@ -273,8 +273,7 @@ public class Main {
                 } else {
                     System.out.print("Intevalo zingsnis negali but didesnis uz nuo iki skirtuma, pakartotinai iveskite zinksni: ");
                 }
-            } else
-                System.out.println(" Ivestas ne sveikus skaicius, iveskite pakartotinai");
+            } else System.out.println(" Ivestas ne sveikus skaicius, iveskite pakartotinai");
         }
     }
 
