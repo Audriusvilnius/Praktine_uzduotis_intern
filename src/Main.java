@@ -92,7 +92,6 @@ public class Main {
 
                 try {
                     frame.setSize(700, 200);
-                    int valueFrom = Integer.parseInt(from);
                     resultLabelFrom.setText("");
                 } catch (NumberFormatException ex) {
                     resultLabelFrom.setText("Invalid input From: " + from);
@@ -100,7 +99,6 @@ public class Main {
                 }
                 try {
                     frame.setSize(700, 200);
-                    int valueTo = Integer.parseInt(to);
                     resultLabelTo.setText("");
                 } catch (NumberFormatException ex) {
                     resultLabelTo.setText("Invalid input To: " + to);
@@ -108,7 +106,6 @@ public class Main {
                 }
                 try {
                     frame.setSize(700, 200);
-                    int valueSteps = Integer.parseInt(step);
                     resultLabelSteps.setText("");
                 } catch (NumberFormatException ex) {
                     resultLabelSteps.setText("Invalid input Steps: " + step);
@@ -295,16 +292,16 @@ public class Main {
         System.out.println("Iveskite tris sveikus skaicius. Intervlas nuo iki ir intervalo žingsnis.");
         System.out.print("Intevalas nuo: ");
         int check = 0;
-        //String data = "100";
+        //String data = from;
         String data = inp.next();
         if (isNumeric(data)) data_array[0] = Integer.parseInt(data);
         else {
             System.out.println("Ivestas ne sveikus skaicius");
-            inputData();
+            // inputData(from, to, step);
         }
         System.out.print("Intevalas iki: ");
         while (check != 1) {
-            //data = "200";
+            //data = to;
             data = inp.next();
             if (isNumeric(data)) {
                 data_array[1] = Integer.parseInt(data);
@@ -318,7 +315,7 @@ public class Main {
 
         System.out.print("Žingsnis: ");
         while (check != 0) {
-            //data = "26";
+            //data = step;
             data = inp.next();
             if (isNumeric(data)) {
                 data_array[2] = Integer.parseInt(data);
