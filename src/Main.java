@@ -38,15 +38,11 @@ import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.Scanner;
 import javax.swing.*;
-
 import static java.lang.Thread.sleep;
-
-import javax.swing.*;
 import java.awt.event.*;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-
 
         JFrame frame = new JFrame("Registration Form");
         frame.setSize(600, 600);
@@ -59,7 +55,6 @@ public class Main {
         panel.add(fromLabel);
         panel.add(fromText);
 
-
         JLabel toLabel = new JLabel("To:");
         JTextField toText = new JTextField(10);
         panel.add(toLabel);
@@ -69,7 +64,6 @@ public class Main {
         JTextField stepText = new JTextField(10);
         panel.add(stepLabel);
         panel.add(stepText);
-
 
         JButton submitButton = new JButton("Submit");
         JButton abortButton = new JButton("Abort");
@@ -82,7 +76,7 @@ public class Main {
         submitButton.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {
-                String from = fromText.getText();
+                 String from = fromText.getText();
                 String to = toText.getText();
                 String step = stepText.getText();
 
@@ -113,8 +107,10 @@ public class Main {
                 }
             }
         });
+
         panel.add(submitButton);
         panel.add(abortButton);
+
         abortButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 System.exit(0);
@@ -127,7 +123,7 @@ public class Main {
         inputData();
         createInterval();
 
-        int primeNumberQty = 0;
+        int primeNumberQty;
         System.out.println(Arrays.toString(data));
         String dataArray = Arrays.toString(data);
 
@@ -145,10 +141,10 @@ public class Main {
             e.printStackTrace();
         }
 
-        for (int i = 0; i < data.length; i++) {
-            primeNumberQty = primeNumberQty(data[i]);
+        for (int datum : data) {
+            primeNumberQty = primeNumberQty(datum);
             primeArray = new int[primeNumberQty + 1];
-            primeArray[0] = data[i];
+            primeArray[0] = datum;
             primenumberArray(primeArray);
             System.out.println(Arrays.toString(primeArray));
             dataSave(primeArray, timeNow());
@@ -164,6 +160,7 @@ public class Main {
             System.out.println("An error occurred.");
             e.printStackTrace();
         }
+
     }
 
     private static String timeNow() {
@@ -176,16 +173,20 @@ public class Main {
         StringBuilder str = new StringBuilder();
         String fileName = "rezultatai.txt";
         BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true));
+
         StringBuilder multiplication = new StringBuilder(primeArray[0] + "=");
+
         for (int i = 1; i < primeArray.length; i++) {
             multiplication.append(primeArray[i]).append("*");
         }
         if (!multiplication.isEmpty()) {
             multiplication = new StringBuilder(multiplication.substring(0, multiplication.length() - 1));
         }
+
         str.append(time).append(" ").append(multiplication).append("\n");
         writer.append(str);
         writer.close();
+
     }
 
     private static void createInterval() {
@@ -196,6 +197,7 @@ public class Main {
         for (int i = 1; i <= interval; i++) {
             data[i] = data[i - 1] + data_array[2];
         }
+
         int qty = 0;
         int proc = 0;
         System.out.println();
@@ -226,6 +228,7 @@ public class Main {
             startDif = startDif.substring(20);
             int start = Integer.parseInt(startDif);
             //System.out.println(start);
+
             if ((value % i) == 0) {
                 String endtDif = timeNow();
                 endtDif = endtDif.substring(20);
@@ -285,7 +288,7 @@ public class Main {
         if (isNumeric(data)) data_array[0] = Integer.parseInt(data);
         else {
             System.out.println("Ivestas ne sveikus skaicius");
-            // inputData(from, to, step);
+           // inputData(from, to, step);
         }
         System.out.print("Intevalas iki: ");
         while (check != 1) {
