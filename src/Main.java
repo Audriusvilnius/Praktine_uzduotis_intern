@@ -17,8 +17,6 @@ public class Main {
     static public int[] data;
     static public int[] primeArray;
     static public int progress = 0;
-    private static HttpCookie progressBar;
-
     public static void main(String[] args) throws IOException {
 
         JFrame frame = new JFrame("Prime number calculator");
