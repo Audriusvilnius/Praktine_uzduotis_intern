@@ -10,14 +10,20 @@ import javax.swing.*;
 import static java.lang.Thread.sleep;
 import java.awt.event.*;
 
+
+
+
 public class Main {
 
     static public int[] data_array = new int[3];
     static public int[] data;
     static public int[] primeArray;
+    static public int progressBar = 0;
+
+
     public static void main(String[] args) throws IOException {
 
-        JFrame frame = new JFrame("Registration Form");
+        JFrame frame = new JFrame("Prime number calculator");
         frame.setSize(600, 600);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         JPanel panel = new JPanel();
@@ -77,23 +83,8 @@ public class Main {
                     resultLabelSteps.setText("Invalid input Steps: " + step);
                     panel.add(resultLabelSteps);
                 }
-            }
-        });
-
-        panel.add(submitButton);
-        panel.add(abortButton);
-
-        abortButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                System.exit(0);
-            }
-        });
-
-        frame.pack();
-        frame.setVisible(true);
-
-        inputData();
-        createInterval();
+                inputData(from , to , step);
+                createInterval(from, to, step);
 
         int primeNumberQty;
         System.out.println(Arrays.toString(data));
@@ -111,11 +102,29 @@ public class Main {
             primeArray[0] = datum;
             primeNumberArray(primeArray);
             System.out.println(Arrays.toString(primeArray));
-            dataSave(primeArray, timeNow());
+            try {
+                dataSave(primeArray, timeNow());
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
         }
-
         String end = timeNow() + " Skaičiavimo pabaiga.";
         writrToFile(end);
+
+            }
+        });
+
+        panel.add(submitButton);
+        panel.add(abortButton);
+
+        abortButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+        });
+
+        frame.pack();
+        frame.setVisible(true);
     }
 
     private static void writrToFile(String start) {
@@ -155,15 +164,17 @@ public class Main {
         writer.close();
     }
 
-    private static void createInterval() {
-        int interval = (data_array[1] - data_array[0]) / data_array[2];
-        int progressBar = data_array[2] * 100 / (data_array[1] - data_array[0]);
+    private static void createInterval(String from, String to, String step) {
+        int valueTo =Integer.parseInt(to);
+        int valueFrom =Integer.parseInt(from);
+        int valueStep =Integer.parseInt(step);
+        int interval = (valueTo - valueFrom) / valueStep;
+        progressBar = (valueStep * 100) / (valueTo - valueFrom);
         data = new int[interval + 1];
         data[0] = data_array[0];
         for (int i = 1; i <= interval; i++) {
             data[i] = data[i - 1] + data_array[2];
         }
-
         int proc = 0;
         System.out.println();
         System.out.println(proc + "% - " + data[0]);
@@ -236,14 +247,14 @@ public class Main {
         return qty;
     }
 
-    private static void inputData() {
-        Scanner inp = new Scanner(System.in);
+    private static void inputData(String from, String to, String step) {
+        //Scanner inp = new Scanner(System.in);
         System.out.println("Iveskite tris sveikus skaicius. Intervlas nuo iki ir intervalo žingsnis.");
         System.out.print("Intevalas nuo: ");
         int check = 0;
-        //String data = fromText;
-        String data = inp.next();
-        if (isNumeric(data)) data_array[0] = Integer.parseInt(data);
+        //String data = from;
+        //String data = inp.next();
+        if (isNumeric(from)) data_array[0] = Integer.parseInt(from);
         else {
             System.out.println("Ivestas ne sveikus skaicius");
             // inputData(from, to, step);
@@ -251,9 +262,9 @@ public class Main {
         System.out.print("Intevalas iki: ");
         while (check != 1) {
             //data = to;
-            data = inp.next();
-            if (isNumeric(data)) {
-                data_array[1] = Integer.parseInt(data);
+            //data = inp.next();
+            if (isNumeric(to)) {
+                data_array[1] = Integer.parseInt(to);
                 if (data_array[1] <= data_array[0]) {
                     System.out.print("Intevalas iki negali buti mazesnis uz reiksme iki, pakartotinai iveskite iki reiksme: ");
                 } else check = 1;
@@ -265,9 +276,9 @@ public class Main {
         System.out.print("Žingsnis: ");
         while (check != 0) {
             //data = step;
-            data = inp.next();
-            if (isNumeric(data)) {
-                data_array[2] = Integer.parseInt(data);
+            //data = inp.next();
+            if (isNumeric(step)) {
+                data_array[2] = Integer.parseInt(step);
                 if ((data_array[1] - data_array[0]) >= data_array[2] && (data_array[1] - data_array[0]) != 0) {
                     check = 0;
                 } else {
@@ -280,4 +291,9 @@ public class Main {
     private static boolean isNumeric(String str) {
         return str != null && str.matches("\\d+");
     }
+
+
+
+
+
 }
