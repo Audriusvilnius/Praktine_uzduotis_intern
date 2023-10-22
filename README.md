@@ -1,6 +1,4 @@
-# Praktine_uzduotis_intern
-
-## Užduotis darbinantis Java junior pozicijai:
+# Užduotis darbinantis Java junior pozicijai:
 * Sukurti programą, skirtą skaičiaus išskaidymui pirminiais dauginamaisiais.
 * Startavus programą, turi būti atidaromas langas, kuriame turi būti galima įvesti tris skaičius: nuo kurio skaičiaus pradėti skaičiuoti, iki kurio skaičiaus skaičiuoti ir kas kiek didinti skaičių
 (pvz.: jei įvedami skaičiai tokie: 100, 200, 26, tai programa turi išskaidyti dauginamaisiais šiuos skaičius: 100, 126, 152, 178). Lange turi būti mygtukai „Pradėti“ ir „Baigti“ bei progressbar‘as skaičiavimo eigos demonstravimui (procentine išraiška, pagal aukščiau pateiktą pavyzdį, po kiekvieno skaičiaus išskaidymo, progressbar‘o reikšmė turi būti didinama 25%). Paspaudus mygtuką „Pradėti“ turi būti pradedamas skaičiavimas pagal įvestas reikšmes, paspaudus „Baigti“, jis turi būti nutraukiamas (pradėtas skaidyti skaičius turi būti užbaigtas).
