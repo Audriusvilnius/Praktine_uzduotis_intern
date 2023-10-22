@@ -38,7 +38,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.Scanner;
 import javax.swing.*;
+
 import static java.lang.Thread.sleep;
+
 import java.awt.event.*;
 
 public class Main {
@@ -76,7 +78,7 @@ public class Main {
         submitButton.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {
-                 String from = fromText.getText();
+                String from = fromText.getText();
                 String to = toText.getText();
                 String step = stepText.getText();
 
@@ -288,7 +290,7 @@ public class Main {
         if (isNumeric(data)) data_array[0] = Integer.parseInt(data);
         else {
             System.out.println("Ivestas ne sveikus skaicius");
-           // inputData(from, to, step);
+            // inputData(from, to, step);
         }
         System.out.print("Intevalas iki: ");
         while (check != 1) {
