@@ -41,13 +41,10 @@ import javax.swing.*;
 
 import static java.lang.Thread.sleep;
 
+import javax.swing.*;
 import java.awt.event.*;
 
 public class Main {
-    static public int[] data_array = new int[3];
-    static public int[] data;
-    static public int[] primeArray;
-
     public static void main(String[] args) throws IOException {
 
 
@@ -95,6 +92,7 @@ public class Main {
 
                 try {
                     frame.setSize(700, 200);
+                    int valueFrom = Integer.parseInt(from);
                     resultLabelFrom.setText("");
                 } catch (NumberFormatException ex) {
                     resultLabelFrom.setText("Invalid input From: " + from);
@@ -102,29 +100,19 @@ public class Main {
                 }
                 try {
                     frame.setSize(700, 200);
+                    int valueTo = Integer.parseInt(to);
                     resultLabelTo.setText("");
                 } catch (NumberFormatException ex) {
                     resultLabelTo.setText("Invalid input To: " + to);
                     panel.add(resultLabelTo);
                 }
-                int valueSteps = 0;
                 try {
                     frame.setSize(700, 200);
+                    int valueSteps = Integer.parseInt(step);
                     resultLabelSteps.setText("");
                 } catch (NumberFormatException ex) {
                     resultLabelSteps.setText("Invalid input Steps: " + step);
                     panel.add(resultLabelSteps);
-                }
-                inputData(from, to, step);
-
-                createInterval(from, to, step);
-
-                int interval = (data_array[1] - data_array[0]) / data_array[2];
-                int progressBar = data_array[2] * 100 / (data_array[1] - data_array[0]);
-                data = new int[interval + 1];
-                data[0] = data_array[0];
-                for (int i = 1; i <= interval; i++) {
-                    data[i] = data[i - 1] + data_array[2];
                 }
             }
         });
@@ -144,8 +132,8 @@ public class Main {
         frame.setVisible(true);
 
 
-//        inputData();
-        //createInterval();
+        inputData();
+        createInterval();
 
         int primeNumberQty = 0;
         System.out.println(Arrays.toString(data));
@@ -213,7 +201,7 @@ public class Main {
 
     }
 
-    private static void createInterval(String from, String to, String step) {
+    private static void createInterval() {
         int interval = (data_array[1] - data_array[0]) / data_array[2];
         int progressBar = data_array[2] * 100 / (data_array[1] - data_array[0]);
         data = new int[interval + 1];
@@ -298,22 +286,26 @@ public class Main {
         return qty;
     }
 
-    private static void inputData(String from, String to, String step) {
+    static public int[] data_array = new int[3];
+    static public int[] data;
+    static public int[] primeArray;
+
+    private static void inputData() {
         Scanner inp = new Scanner(System.in);
         System.out.println("Iveskite tris sveikus skaicius. Intervlas nuo iki ir intervalo žingsnis.");
         System.out.print("Intevalas nuo: ");
         int check = 0;
-        String data = from;
-        //data = inp.next();
+        //String data = "100";
+        String data = inp.next();
         if (isNumeric(data)) data_array[0] = Integer.parseInt(data);
         else {
             System.out.println("Ivestas ne sveikus skaicius");
-            inputData(from, to, step);
+            inputData();
         }
         System.out.print("Intevalas iki: ");
         while (check != 1) {
-            data = to;
-            //data = inp.next();
+            //data = "200";
+            data = inp.next();
             if (isNumeric(data)) {
                 data_array[1] = Integer.parseInt(data);
                 if (data_array[1] <= data_array[0]) {
@@ -326,8 +318,8 @@ public class Main {
 
         System.out.print("Žingsnis: ");
         while (check != 0) {
-            data = step;
-            //data = inp.next();
+            //data = "26";
+            data = inp.next();
             if (isNumeric(data)) {
                 data_array[2] = Integer.parseInt(data);
                 if ((data_array[1] - data_array[0]) >= data_array[2] && (data_array[1] - data_array[0]) != 0) {
