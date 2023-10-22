@@ -6,9 +6,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import javax.swing.*;
-
 import static java.lang.Thread.sleep;
-
 import java.awt.event.*;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
