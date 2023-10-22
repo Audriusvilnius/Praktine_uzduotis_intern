@@ -7,9 +7,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.Scanner;
 import javax.swing.*;
-
 import static java.lang.Thread.sleep;
-
 import java.awt.event.*;
 
 public class Main {
@@ -42,7 +40,6 @@ public class Main {
         JLabel resultLabelFrom = new JLabel();
         JLabel resultLabelTo = new JLabel();
         JLabel resultLabelSteps = new JLabel();
-
 
         submitButton.addActionListener(new ActionListener() {
 
@@ -157,7 +154,6 @@ public class Main {
         str.append(time).append(" ").append(multiplication).append("\n");
         writer.append(str);
         writer.close();
-
     }
 
     private static void createInterval() {
