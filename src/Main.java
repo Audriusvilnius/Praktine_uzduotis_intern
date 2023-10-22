@@ -11,6 +11,10 @@ import static java.lang.Thread.sleep;
 import java.awt.event.*;
 
 public class Main {
+
+    static public int[] data_array = new int[3];
+    static public int[] data;
+    static public int[] primeArray;
     public static void main(String[] args) throws IOException {
 
         JFrame frame = new JFrame("Registration Form");
@@ -99,6 +103,22 @@ public class Main {
             dataArray = dataArray.substring(1, dataArray.length() - 1);
         }
         String start = timeNow() + " Skaičiavimo pradžia. Naudojami skaičiai: " + dataArray;
+        writrToFile(start);
+
+        for (int datum : data) {
+            primeNumberQty = primeNumberQty(datum);
+            primeArray = new int[primeNumberQty + 1];
+            primeArray[0] = datum;
+            primeNumberArray(primeArray);
+            System.out.println(Arrays.toString(primeArray));
+            dataSave(primeArray, timeNow());
+        }
+
+        String end = timeNow() + " Skaičiavimo pabaiga.";
+        writrToFile(end);
+    }
+
+    private static void writrToFile(String start) {
         try {
             FileWriter fileWriter = new FileWriter("rezultatai.txt", true);
             PrintWriter printWriter = new PrintWriter(fileWriter);
@@ -108,27 +128,6 @@ public class Main {
             System.out.println("An error occurred.");
             e.printStackTrace();
         }
-
-        for (int datum : data) {
-            primeNumberQty = primeNumberQty(datum);
-            primeArray = new int[primeNumberQty + 1];
-            primeArray[0] = datum;
-            primenumberArray(primeArray);
-            System.out.println(Arrays.toString(primeArray));
-            dataSave(primeArray, timeNow());
-        }
-
-        String end = timeNow() + " Skaičiavimo pabaiga.";
-        try {
-            FileWriter fileWriter = new FileWriter("rezultatai.txt", true);
-            PrintWriter printWriter = new PrintWriter(fileWriter);
-            printWriter.println(end);
-            printWriter.close();
-        } catch (IOException e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace();
-        }
-
     }
 
     private static String timeNow() {
@@ -188,7 +187,8 @@ public class Main {
         }
     }
 
-    private static int[] primenumberArray(int[] primeArray) {
+    private static void primeNumberArray(int[] primeArray) {
+        Main.primeArray = primeArray;
         int value = primeArray[0];
         for (int i = 2, y = 1; i <= value; i++) {
             String startDif = timeNow();
@@ -211,7 +211,6 @@ public class Main {
                 i = 1;
             }
         }
-        return primeArray;
     }
 
     private static void delay() {
@@ -240,10 +239,6 @@ public class Main {
 */
         return qty;
     }
-
-    static public int[] data_array = new int[3];
-    static public int[] data;
-    static public int[] primeArray;
 
     private static void inputData() {
         Scanner inp = new Scanner(System.in);
