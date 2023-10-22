@@ -2,24 +2,27 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.HttpCookie;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
-import java.util.Scanner;
 import javax.swing.*;
+
+import javax.swing.*;
+import java.awt.*;
+
 import static java.lang.Thread.sleep;
+
 import java.awt.event.*;
-
-
-
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 public class Main {
-
     static public int[] data_array = new int[3];
     static public int[] data;
     static public int[] primeArray;
-    static public int progressBar = 0;
-
+    static public int progress = 0;
+    private static HttpCookie progressBar;
 
     public static void main(String[] args) throws IOException {
 
@@ -50,10 +53,12 @@ public class Main {
         JLabel resultLabelFrom = new JLabel();
         JLabel resultLabelTo = new JLabel();
         JLabel resultLabelSteps = new JLabel();
-
+        JProgressBar progressBar = new JProgressBar(0, 100);
+        progressBar.setStringPainted(true); // Show a percentage string
         submitButton.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {
+
                 String from = fromText.getText();
                 String to = toText.getText();
                 String step = stepText.getText();
@@ -83,33 +88,35 @@ public class Main {
                     resultLabelSteps.setText("Invalid input Steps: " + step);
                     panel.add(resultLabelSteps);
                 }
-                inputData(from , to , step);
+                inputData(from, to, step);
                 createInterval(from, to, step);
 
-        int primeNumberQty;
-        System.out.println(Arrays.toString(data));
-        String dataArray = Arrays.toString(data);
+                int primeNumberQty;
+                System.out.println(Arrays.toString(data));
+                String dataArray = Arrays.toString(data);
 
-        if (!dataArray.isEmpty()) {
-            dataArray = dataArray.substring(1, dataArray.length() - 1);
-        }
-        String start = timeNow() + " Skaičiavimo pradžia. Naudojami skaičiai: " + dataArray;
-        writrToFile(start);
-
-        for (int datum : data) {
-            primeNumberQty = primeNumberQty(datum);
-            primeArray = new int[primeNumberQty + 1];
-            primeArray[0] = datum;
-            primeNumberArray(primeArray);
-            System.out.println(Arrays.toString(primeArray));
-            try {
-                dataSave(primeArray, timeNow());
-            } catch (IOException ex) {
-                throw new RuntimeException(ex);
-            }
-        }
-        String end = timeNow() + " Skaičiavimo pabaiga.";
-        writrToFile(end);
+                if (!dataArray.isEmpty()) {
+                    dataArray = dataArray.substring(1, dataArray.length() - 1);
+                }
+                String start = timeNow() + " Skaičiavimo pradžia. Naudojami skaičiai: " + dataArray;
+                writrToFile(start);
+                frame.add(progressBar);
+                for (int datum : data) {
+                    progress += progress;
+                    primeNumberQty = primeNumberQty(datum);
+                    primeArray = new int[primeNumberQty + 1];
+                    primeArray[0] = datum;
+                    primeNumberArray(primeArray);
+                    progressBar.setValue(progress);
+                    System.out.println(Arrays.toString(primeArray));
+                    try {
+                        dataSave(primeArray, timeNow());
+                    } catch (IOException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                }
+                String end = timeNow() + " Skaičiavimo pabaiga.";
+                writrToFile(end);
 
             }
         });
@@ -122,7 +129,6 @@ public class Main {
                 System.exit(0);
             }
         });
-
         frame.pack();
         frame.setVisible(true);
     }
@@ -158,18 +164,17 @@ public class Main {
         if (!multiplication.isEmpty()) {
             multiplication = new StringBuilder(multiplication.substring(0, multiplication.length() - 1));
         }
-
         str.append(time).append(" ").append(multiplication).append("\n");
         writer.append(str);
         writer.close();
     }
 
     private static void createInterval(String from, String to, String step) {
-        int valueTo =Integer.parseInt(to);
-        int valueFrom =Integer.parseInt(from);
-        int valueStep =Integer.parseInt(step);
+        int valueTo = Integer.parseInt(to);
+        int valueFrom = Integer.parseInt(from);
+        int valueStep = Integer.parseInt(step);
         int interval = (valueTo - valueFrom) / valueStep;
-        progressBar = (valueStep * 100) / (valueTo - valueFrom);
+        progress = (valueStep * 100) / (valueTo - valueFrom);
         data = new int[interval + 1];
         data[0] = data_array[0];
         for (int i = 1; i <= interval; i++) {
@@ -181,7 +186,7 @@ public class Main {
         for (int i = 1; i < interval + 1; i++) {
             try {
                 data[i] = data[i - 1] + data_array[2];
-                proc += progressBar;
+                proc += progress;
                 if (data[i] == data_array[1]) {
                     proc = 100;
                 }
@@ -202,7 +207,6 @@ public class Main {
             startDif = startDif.substring(20);
             int start = Integer.parseInt(startDif);
             //System.out.println(start);
-
             if ((value % i) == 0) {
                 String endtDif = timeNow();
                 endtDif = endtDif.substring(20);
@@ -291,9 +295,4 @@ public class Main {
     private static boolean isNumeric(String str) {
         return str != null && str.matches("\\d+");
     }
-
-
-
-
-
 }
