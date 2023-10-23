@@ -2,7 +2,6 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.net.HttpCookie;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
@@ -17,7 +16,7 @@ public class Main {
     static public int[] data;
     static public int[] primeArray;
     static public int progress = 0;
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args){
 
         JFrame frame = new JFrame("Prime number calculator");
         frame.setSize(600, 600);
