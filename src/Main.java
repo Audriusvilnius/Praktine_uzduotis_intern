@@ -6,8 +6,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import javax.swing.*;
+
 import static java.lang.Thread.sleep;
-import java.awt.event.*;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -16,7 +17,8 @@ public class Main {
     static public int[] data;
     static public int[] primeArray;
     static public int progress = 0;
-    public static void main(String[] args){
+
+    public static void main(String[] args) {
 
         JFrame frame = new JFrame("Prime number calculator");
         frame.setSize(600, 600);
@@ -46,81 +48,83 @@ public class Main {
         JLabel resultLabelTo = new JLabel();
         JLabel resultLabelSteps = new JLabel();
         JProgressBar progressBar = new JProgressBar(0, 100);
-        progressBar.setStringPainted(true); // Show a percentage string
-        submitButton.addActionListener(new ActionListener() {
-
-            public void actionPerformed(ActionEvent e) {
-
-                String from = fromText.getText();
-                String to = toText.getText();
-                String step = stepText.getText();
-
-                System.out.println(from);
-                System.out.println(to);
-                System.out.println(step);
-
-                try {
-                    frame.setSize(700, 200);
-                    resultLabelFrom.setText("");
-                } catch (NumberFormatException ex) {
-                    resultLabelFrom.setText("Invalid input From: " + from);
-                    panel.add(resultLabelFrom);
-                }
-                try {
-                    frame.setSize(700, 200);
-                    resultLabelTo.setText("");
-                } catch (NumberFormatException ex) {
-                    resultLabelTo.setText("Invalid input To: " + to);
-                    panel.add(resultLabelTo);
-                }
-                try {
-                    frame.setSize(700, 200);
-                    resultLabelSteps.setText("");
-                } catch (NumberFormatException ex) {
-                    resultLabelSteps.setText("Invalid input Steps: " + step);
-                    panel.add(resultLabelSteps);
-                }
-                inputData(from, to, step);
-                createInterval(from, to, step);
-
-                int primeNumberQty;
-                System.out.println(Arrays.toString(data));
-                String dataArray = Arrays.toString(data);
-
-                if (!dataArray.isEmpty()) {
-                    dataArray = dataArray.substring(1, dataArray.length() - 1);
-                }
-                String start = timeNow() + " Skaičiavimo pradžia. Naudojami skaičiai: " + dataArray;
-                writrToFile(start);
-                frame.add(progressBar);
-                for (int datum : data) {
-                    progress += progress;
-                    primeNumberQty = primeNumberQty(datum);
-                    primeArray = new int[primeNumberQty + 1];
-                    primeArray[0] = datum;
-                    primeNumberArray(primeArray);
-                    progressBar.setValue(progress);
-                    System.out.println(Arrays.toString(primeArray));
-                    try {
-                        dataSave(primeArray, timeNow());
-                    } catch (IOException ex) {
-                        throw new RuntimeException(ex);
-                    }
-                }
-                String end = timeNow() + " Skaičiavimo pabaiga.";
-                writrToFile(end);
-
-            }
-        });
-
         panel.add(submitButton);
         panel.add(abortButton);
 
-        abortButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                System.exit(0);
+
+        submitButton.addActionListener(e -> {
+
+            String from = fromText.getText();
+            String to = toText.getText();
+            String step = stepText.getText();
+
+            System.out.println(from);
+            System.out.println(to);
+            System.out.println(step);
+
+            try {
+                frame.setSize(700, 200);
+                resultLabelFrom.setText("");
+            } catch (NumberFormatException ex) {
+                resultLabelFrom.setText("Invalid input From: " + from);
+                panel.add(resultLabelFrom);
             }
+            try {
+                frame.setSize(700, 200);
+                resultLabelTo.setText("");
+            } catch (NumberFormatException ex) {
+                resultLabelTo.setText("Invalid input To: " + to);
+                panel.add(resultLabelTo);
+            }
+            try {
+                frame.setSize(700, 200);
+                resultLabelSteps.setText("");
+            } catch (NumberFormatException ex) {
+                resultLabelSteps.setText("Invalid input Steps: " + step);
+                panel.add(resultLabelSteps);
+            }
+            inputData(from, to, step);
+            createInterval(from, to, step);
+
+            int primeNumberQty;
+            System.out.println();
+            System.out.println(Arrays.toString(data));
+            String dataArray = Arrays.toString(data);
+
+            if (!dataArray.isEmpty()) {
+                dataArray = dataArray.substring(1, dataArray.length() - 1);
+            }
+            String start = timeNow() + " Skaičiavimo pradžia. Naudojami skaičiai: " + dataArray;
+            writrToFile(start);
+            int proc = 0, i = 0;
+
+            for (int datum : data) {
+                primeNumberQty = primeNumberQty(datum);
+                primeArray = new int[primeNumberQty + 1];
+                primeArray[0] = datum;
+                primeNumberArray(primeArray);
+                proc += progress;
+                i++;
+                if (data.length == i) {
+                    proc = 100;
+                }
+                System.out.print(proc + " % - ");
+                System.out.println(Arrays.toString(primeArray));
+                progressBar.setStringPainted(true);
+                progressBar.setValue(proc);
+                try {
+                    dataSave(primeArray, timeNow());
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
+            String end = timeNow() + " Skaičiavimo pabaiga.";
+            writrToFile(end);
+
         });
+
+
+        abortButton.addActionListener(e -> System.exit(0));
         frame.pack();
         frame.setVisible(true);
     }
@@ -132,8 +136,8 @@ public class Main {
             printWriter.println(start);
             printWriter.close();
         } catch (IOException e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace();
+            //System.out.println("An error occurred.");
+            // e.printStackTrace();
         }
     }
 
@@ -166,29 +170,12 @@ public class Main {
         int valueFrom = Integer.parseInt(from);
         int valueStep = Integer.parseInt(step);
         int interval = (valueTo - valueFrom) / valueStep;
-        progress = (valueStep * 100) / (valueTo - valueFrom);
         data = new int[interval + 1];
         data[0] = data_array[0];
         for (int i = 1; i <= interval; i++) {
             data[i] = data[i - 1] + data_array[2];
         }
-        int proc = 0;
-        System.out.println();
-        System.out.println(proc + "% - " + data[0]);
-        for (int i = 1; i < interval + 1; i++) {
-            try {
-                data[i] = data[i - 1] + data_array[2];
-                proc += progress;
-                if (data[i] == data_array[1]) {
-                    proc = 100;
-                }
-                // delay 0.5 seconds
-                sleep(0);
-                System.out.println(proc + "% - " + data[i]);
-            } catch (InterruptedException e) {
-                System.err.format("IOException: %s%n", e);
-            }
-        }
+        progress = 100 / data.length;
     }
 
     private static void primeNumberArray(int[] primeArray) {
