@@ -19,6 +19,8 @@ public class Main {
     static public int progress = 0;
 
     public static void main(String[] args) {
+        JProgressBar progressBar = new JProgressBar(0, 100);
+        progressBar.setStringPainted(true); // Show a percentage string
 
         JFrame frame = new JFrame("Prime number calculator");
         frame.setSize(600, 600);
@@ -47,11 +49,9 @@ public class Main {
         JLabel resultLabelFrom = new JLabel();
         JLabel resultLabelTo = new JLabel();
         JLabel resultLabelSteps = new JLabel();
-        JProgressBar progressBar = new JProgressBar(0, 100);
+
         panel.add(submitButton);
         panel.add(abortButton);
-
-
         submitButton.addActionListener(e -> {
 
             String from = fromText.getText();
@@ -96,22 +96,21 @@ public class Main {
             }
             String start = timeNow() + " Skaičiavimo pradžia. Naudojami skaičiai: " + dataArray;
             writrToFile(start);
-            int proc = 0, i = 0;
-
+            int porcent = 0, i = 0;
             for (int datum : data) {
                 primeNumberQty = primeNumberQty(datum);
                 primeArray = new int[primeNumberQty + 1];
                 primeArray[0] = datum;
                 primeNumberArray(primeArray);
-                proc += progress;
+                porcent += progress;
                 i++;
                 if (data.length == i) {
-                    proc = 100;
+                    porcent = 100;
                 }
-                System.out.print(proc + " % - ");
+                System.out.print(porcent + " % - ");
                 System.out.println(Arrays.toString(primeArray));
                 progressBar.setStringPainted(true);
-                progressBar.setValue(proc);
+                progressBar.setValue(porcent);
                 try {
                     dataSave(primeArray, timeNow());
                 } catch (IOException ex) {
@@ -120,10 +119,7 @@ public class Main {
             }
             String end = timeNow() + " Skaičiavimo pabaiga.";
             writrToFile(end);
-
         });
-
-
         abortButton.addActionListener(e -> System.exit(0));
         frame.pack();
         frame.setVisible(true);
