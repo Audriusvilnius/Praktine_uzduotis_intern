@@ -17,7 +17,7 @@ public class Main {
     static public int[] primeArray;
     static public int progress = 0;
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
 
         JFrame frame = new JFrame("Prime number calculator");
         frame.setSize(600, 600);
@@ -46,6 +46,7 @@ public class Main {
         JLabel resultLabelFrom = new JLabel();
         JLabel resultLabelTo = new JLabel();
         JLabel resultLabelSteps = new JLabel();
+
         JProgressBar progressBar = new JProgressBar(0, 100);
         progressBar.setStringPainted(true); // Show a percentage string
         submitButton.addActionListener(new ActionListener() {
