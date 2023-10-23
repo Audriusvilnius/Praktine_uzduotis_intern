@@ -4,7 +4,6 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.SwingUtilities;
-import java.awt.*;
 
 // Klase turetu suveikti po submitButton paspaudimo Main. clase
 public class ProgressBar extends JPanel {
@@ -27,9 +26,8 @@ public class ProgressBar extends JPanel {
     }
     public static void main(String[] args) {
         final ProgressBar progressBar = new ProgressBar();
-        progressBar.setPreferredSize(new Dimension(300, 30));
         JFrame frame = new JFrame("Calculation Progress");
-//        frame.setSize(300, 300);
+        frame.setSize(300, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setContentPane(progressBar);
         frame.pack();
@@ -39,7 +37,7 @@ public class ProgressBar extends JPanel {
         // Update the progress bar
         for (int i = 0; i <= 100; i++) {
             final int percent = i;
-//            frame.setSize(300, 60);
+            frame.setSize(300, 60);
             try {
                 SwingUtilities.invokeLater(new Runnable() {
                     public void run() {

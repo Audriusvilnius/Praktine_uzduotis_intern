@@ -2,6 +2,7 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.HttpCookie;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
@@ -16,8 +17,7 @@ public class Main {
     static public int[] data;
     static public int[] primeArray;
     static public int progress = 0;
-
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
         JFrame frame = new JFrame("Prime number calculator");
         frame.setSize(600, 600);
@@ -46,7 +46,6 @@ public class Main {
         JLabel resultLabelFrom = new JLabel();
         JLabel resultLabelTo = new JLabel();
         JLabel resultLabelSteps = new JLabel();
-
         JProgressBar progressBar = new JProgressBar(0, 100);
         progressBar.setStringPainted(true); // Show a percentage string
         submitButton.addActionListener(new ActionListener() {
@@ -111,6 +110,7 @@ public class Main {
                 }
                 String end = timeNow() + " Skaičiavimo pabaiga.";
                 writrToFile(end);
+
             }
         });
 
