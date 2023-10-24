@@ -1,56 +1,40 @@
 package progresbar;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JProgressBar;
-import javax.swing.SwingUtilities;
+import com.sun.tools.javac.Main;
 
-// Klase turetu suveikti po submitButton paspaudimo Main. clase
-public class ProgressBar extends JPanel {
-    private final JProgressBar progressBar;
-    private static final int MIN_VALUE = 0;
-    private static final int MAX_VALUE = 100;
+import javax.swing.*;
 
-    public ProgressBar() {
-        progressBar = new JProgressBar();
-        progressBar.setMinimum(MIN_VALUE);
-        progressBar.setMaximum(MAX_VALUE);
-        add(progressBar);
+
+public class ProgressBar extends JFrame {
+    JProgressBar jb;
+
+    int i = 0;
+
+    ProgressBar() {
+        jb = new JProgressBar(0, 100);
+        jb.setBounds(20, 20, 260, 30);
+        jb.setValue(0);
+        jb.setStringPainted(true);
+        add(jb);
+        setSize(300, 100);
+        setLayout(null);
     }
 
-    public void updateProgress(int value) {
-        progressBar.setStringPainted(true); // Show a percentage string
-        progressBar.setValue(value);
-       //  progressBar.setValue(progress); // reik paimt is Main.class
-
-    }
-    public static void main(String[] args) {
-        final ProgressBar progressBar = new ProgressBar();
-        JFrame frame = new JFrame("Calculation Progress");
-        frame.setSize(300, 300);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setContentPane(progressBar);
-        frame.pack();
-        frame.setVisible(true);
-
-
-        // Update the progress bar
-        for (int i = 0; i <= 100; i++) {
-            final int percent = i;
-            frame.setSize(300, 60);
+    public void iterate() {
+        while (i <= 100) {
+            jb.setValue(i);
+            i = i + 1;
             try {
-                SwingUtilities.invokeLater(new Runnable() {
-                    public void run() {
-                        progressBar.updateProgress(percent);
-                    }
-                });
-                Thread.sleep(100);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            if (i == 100) {
-                System.exit(0);
+                Thread.sleep(150);
+            } catch (Exception ignored) {
             }
         }
+    }
+
+    public static void main(String[] args) {
+        ProgressBar m = new ProgressBar();
+        m.setVisible(true);
+        m.iterate();
+        System.exit(0);
     }
 }

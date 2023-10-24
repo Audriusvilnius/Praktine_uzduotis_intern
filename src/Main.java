@@ -16,9 +16,13 @@ public class Main {
     static public int[] data_array = new int[3];
     static public int[] data;
     static public int[] primeArray;
-    static public int progress = 0;
 
+    public static class Global{
+        public static int progress = 0;
+    }
     public static void main(String[] args) {
+        Global progress = new Global();
+
         JProgressBar progressBar = new JProgressBar(0, 100);
         progressBar.setStringPainted(true); // Show a percentage string
 
@@ -102,7 +106,7 @@ public class Main {
                 primeArray = new int[primeNumberQty + 1];
                 primeArray[0] = datum;
                 primeNumberArray(primeArray);
-                porcent += progress;
+                porcent += Global.progress;
                 i++;
                 if (data.length == i) {
                     porcent = 100;
@@ -171,7 +175,7 @@ public class Main {
         for (int i = 1; i <= interval; i++) {
             data[i] = data[i - 1] + data_array[2];
         }
-        progress = 100 / data.length;
+        Global.progress = 100 / data.length;
     }
 
     private static void primeNumberArray(int[] primeArray) {
@@ -270,4 +274,5 @@ public class Main {
     private static boolean isNumeric(String str) {
         return str != null && str.matches("\\d+");
     }
+
 }
