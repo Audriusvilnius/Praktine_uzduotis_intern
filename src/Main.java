@@ -16,17 +16,25 @@ public class Main {
     static public int[] data_array = new int[3];
     static public int[] data;
     static public int[] primeArray;
+    public static int progress = 0;
+    public static int porcent = 0;
 
-    public static class Global{
-        public static int progress = 0;
-    }
+
+    static JFrame f;
+
+    static JProgressBar b;
+
+
     public static void main(String[] args) {
-        Global progress = new Global();
+       // ProgressBar ProgressBar = new ProgressBar();
+        //int y = ProgressBar.progress;
+        // progressBar.getClass();
 
-        JProgressBar progressBar = new JProgressBar(0, 100);
-        progressBar.setStringPainted(true); // Show a percentage string
+        //JProgressBar progressBar = new JProgressBar(0, 100);
+        //progressBar.setStringPainted(true); // Show a percentage string
 
         JFrame frame = new JFrame("Prime number calculator");
+        frame.setBounds(200, 300, 260, 30);
         frame.setSize(600, 600);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         JPanel panel = new JPanel();
@@ -100,27 +108,31 @@ public class Main {
             }
             String start = timeNow() + " Skaičiavimo pradžia. Naudojami skaičiai: " + dataArray;
             writrToFile(start);
-            int porcent = 0, i = 0;
+            int i = 0;
             for (int datum : data) {
                 primeNumberQty = primeNumberQty(datum);
                 primeArray = new int[primeNumberQty + 1];
                 primeArray[0] = datum;
                 primeNumberArray(primeArray);
-                porcent += Global.progress;
+                porcent += progress;
                 i++;
                 if (data.length == i) {
                     porcent = 100;
                 }
                 System.out.print(porcent + " % - ");
                 System.out.println(Arrays.toString(primeArray));
-                progressBar.setStringPainted(true);
-                progressBar.setValue(porcent);
+                //progressBar.setStringPainted(true);
+                //progressBar.setValue(porcent);
+
+
                 try {
                     dataSave(primeArray, timeNow());
                 } catch (IOException ex) {
                     throw new RuntimeException(ex);
                 }
             }
+            ProgressBar.main();
+            porcent = 0;
             String end = timeNow() + " Skaičiavimo pabaiga.";
             writrToFile(end);
         });
@@ -175,7 +187,7 @@ public class Main {
         for (int i = 1; i <= interval; i++) {
             data[i] = data[i - 1] + data_array[2];
         }
-        Global.progress = 100 / data.length;
+        progress = 100 / data.length;
     }
 
     private static void primeNumberArray(int[] primeArray) {
