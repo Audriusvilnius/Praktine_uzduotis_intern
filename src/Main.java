@@ -6,9 +6,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import javax.swing.*;
-
 import static java.lang.Thread.sleep;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -21,12 +19,6 @@ public class Main {
 
     public static void main(String[] args) {
        // ProgressBar ProgressBar = new ProgressBar();
-        //int y = ProgressBar.progress;
-        // progressBar.getClass();
-
-        //JProgressBar progressBar = new JProgressBar(0, 100);
-        //progressBar.setStringPainted(true); // Show a percentage string
-
         JFrame frame = new JFrame("Prime number calculator");
         frame.setBounds(200, 300, 260, 30);
         frame.setSize(600, 600);
@@ -117,8 +109,6 @@ public class Main {
                 System.out.println(Arrays.toString(primeArray));
                 //progressBar.setStringPainted(true);
                 //progressBar.setValue(porcent);
-
-
                 try {
                     dataSave(primeArray, timeNow());
                 } catch (IOException ex) {

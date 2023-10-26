@@ -11,11 +11,9 @@ public class ProgressBar extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(300, 100);
        // setBounds(20, 20, 260, 30);
-
         bar = new JProgressBar(0, 100);
         bar.setValue(0);
         bar.setStringPainted(true);
-
         add(bar);
 
         // You can add code here to perform an action when the progress is complete.
@@ -29,6 +27,7 @@ public class ProgressBar extends JFrame {
                     // You can add code here to perform an action when the progress is complete.
                 } else {
                     progress += Main.progress; // Update the progress value as needed
+                    bar.setBounds(20, 20, 260, 30);
                     bar.setValue(progress);
                 }
             }
