@@ -18,7 +18,7 @@ public class Main {
     public static int porcent = 0;
 
     public static void main(String[] args) {
-       // ProgressBar ProgressBar = new ProgressBar();
+        //ProgressBar ProgressBar = new ProgressBar();
         JFrame frame = new JFrame("Prime number calculator");
         frame.setBounds(200, 300, 260, 30);
         frame.setSize(600, 600);
