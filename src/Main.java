@@ -19,12 +19,6 @@ public class Main {
     public static int progress = 0;
     public static int porcent = 0;
 
-
-//    static JFrame f;
-//
-//    static JProgressBar b;
-
-
     public static void main(String[] args) {
        // ProgressBar ProgressBar = new ProgressBar();
         //int y = ProgressBar.progress;
