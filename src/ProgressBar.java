@@ -25,7 +25,7 @@ public class ProgressBar extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 if (progress >= 100) {
                     ((Timer) e.getSource()).stop();
-                    System.exit(0);
+//                    System.exit(0);
                     // You can add code here to perform an action when the progress is complete.
                 } else {
                     progress += Main.progress; // Update the progress value as needed
