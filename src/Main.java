@@ -20,9 +20,9 @@ public class Main {
     public static int porcent = 0;
 
 
-    static JFrame f;
-
-    static JProgressBar b;
+//    static JFrame f;
+//
+//    static JProgressBar b;
 
 
     public static void main(String[] args) {
